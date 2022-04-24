@@ -100,6 +100,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to new contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #new container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -115,6 +117,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to end of contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -125,6 +129,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to exact same
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -135,6 +141,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to switch
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -150,6 +158,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to fill up 
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -165,6 +175,8 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to dangerous
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -223,6 +235,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to new contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #new container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -238,6 +252,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to end of contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -248,6 +264,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to exact same
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -258,6 +276,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to switch
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -273,6 +293,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to fill up 
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -288,6 +310,8 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to dangerous
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -304,6 +328,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to new contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #new container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -319,6 +345,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to end of contract
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -329,6 +357,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to exact same
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
@@ -339,6 +369,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to switch
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -354,6 +386,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to fill up 
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #if other container size needed
         if clientNow['ContainerSize'] != clientNext['ContainerSize']:
             #than go to depot 
@@ -369,6 +403,8 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         #end of contract to dangerous
         #first go to closest wpf
         genTime += timeBetweenPlaces(clientNow['Place'], closestWpf(clientNow, wpf, cityNames)['Place'], cityNames)
+        #empty the truck 
+        genTime += 20
         #than go to depot 
         genTime += timeBetweenPlaces(closestWpf(clientNow, wpf, cityNames)['Place'], 'Kampenhout', cityNames)
         #leave the container 
