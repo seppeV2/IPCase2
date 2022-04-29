@@ -1,0 +1,2 @@
+distance matrix does not have 0 on diagonals; this is problematic for us.
+
