@@ -1,0 +1,4 @@
+﻿ClientID,ClientName,ContainerSize,Waste,Place,ActionType,Additional
+12,electronics,20,general,Brussel,4,
+24,vegetables,20,dangerous,Leuven,4,
+1,bookstore,20,paper,Antwerpen,4,
