@@ -168,3 +168,6 @@ createDistanceMatrix {
 }
 
 ```
+
+distance matrix element M[i,j] = time spend for service at costumer i + time need to go to time j 
+                                including wpf and depot visit 
