@@ -14,85 +14,69 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
         #line form one client
         clienti = clients.iloc[i]
         if clienti['ActionType'] == 1:
+            service = 12
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
+
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(newContractTo(clienti, clientj,cityNames))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service = placement of container at client
-                    service = 12
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(newContractTo(clienti, clientj,cityNames)) + service
+                
         elif clienti['ActionType'] == 2:
+            service = 12
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(endContractTo(clienti, clientj,cityNames, wpf))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service = picking up container
-                    service = 12
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(endContractTo(clienti, clientj,cityNames, wpf)) + service
+               
         elif clienti['ActionType'] == 3:
+            service = 12
+            service += timeBetweenPlaces(clienti['Place'], closestPathWpf(clienti,clienti['Place'] ,wpf, cityNames)['Place'],cityNames)
+            service += 20
+            service += timeBetweenPlaces(closestPathWpf(clienti,clienti['Place'] ,wpf, cityNames)['Place'],clienti['Place'],cityNames)
+            service += 12
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(sameContainerTo(clienti, clientj,cityNames))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service time = picking up container + driving to wpf + empty truck at wpf + driving back to costumer + unloading container
-                    service = 12
-                    service += timeBetweenPlaces(clienti['Place'], closestPathWpf(clienti,clienti['Place'] ,wpf, cityNames)['Place'],cityNames)
-                    service += 20
-                    service += timeBetweenPlaces(closestPathWpf(clienti,clienti['Place'] ,wpf, cityNames)['Place'],clienti['Place'],cityNames)
-                    service += 12
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(sameContainerTo(clienti, clientj,cityNames)) + round(service)
+                
         elif clienti['ActionType'] == 4:
+            service = 25
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(switchTo(clienti, clientj,cityNames, wpf))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service time = swapping Container
-                    service = 25
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(switchTo(clienti, clientj,cityNames, wpf))  + service
         elif clienti['ActionType'] == 5:
+            service = 30
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(fillingUpTo(clienti, clientj,cityNames, wpf))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service time = time to fill up the container
-                    service = 30
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(fillingUpTo(clienti, clientj,cityNames, wpf)) + service
         elif clienti['ActionType'] == 6:
+            service = 12
+            service += timeBetweenPlaces(clienti['Place'], closestPathWpf(clienti,clienti['Place'], wpf, cityNames)['Place'],cityNames)
+            service += 20
+            service += timeBetweenPlaces(closestPathWpf(clienti, clienti['Place'] ,wpf, cityNames)['Place'],clienti['Place'],cityNames)
+            service += 12
+            if not pd.isnull(clienti['Additional']):
+                service += clienti['Additional']
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames))
-                elif i == j:
-                    #service time is allocated to this spot
-                    #service time = picking up container + driving to wpf + empty truck at wpf + driving back to costumer + unloading container
-                    service = 12
-                    service += timeBetweenPlaces(clienti['Place'], closestPathWpf(clienti,clienti['Place'], wpf, cityNames)['Place'],cityNames)
-                    service += 20
-                    service += timeBetweenPlaces(closestPathWpf(clienti, clienti['Place'] ,wpf, cityNames)['Place'],clienti['Place'],cityNames)
-                    service += 12
-                    if not pd.isnull(clienti['Additional']):
-                        service += clienti['Additional']
-                    distanceMatrix[i,j] = round(service)
+                    distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + round(service)
+
+    
+    startMatrix = depotToClient(csvClientFile, cityNames)
+    distanceMatrix = np.append(startMatrix, distanceMatrix,axis=1)
     print(distanceMatrix)
     return distanceMatrix
 
@@ -622,10 +606,9 @@ def dangerousTo(clientNow, clientNext,cityNames):
 #makes an array with the time between depot and the first client 
 def depotToClient(csvClient, cityNames):
     clients = pd.read_csv(csvClient)
-    depotToStart = np.zeros([len(clients.index),2])
+    depotToStart = np.zeros([len(clients.index),1])
     for i in range(len(clients.index)):
-        depotToStart[i,0] = clients.iloc[i]['ClientID']
-        depotToStart[i,1] = round(timeBetweenPlaces('Kampenhout' , clients.iloc[i]['Place'], cityNames))
+        depotToStart[i,0] = round(timeBetweenPlaces('Kampenhout' , clients.iloc[i]['Place'], cityNames))
     
     return depotToStart
 
@@ -643,11 +626,6 @@ def lastToDepot(csvClient, WPF , cityNames):
             lastToDepot[i,1] = round(timeBetweenPlaces( wpf.iloc[(i-len(clients.index))]['Place'], 'Kampenhout' ,cityNames))
     return lastToDepot
 
-print("depot to client\n")
-print(depotToClient('clientsTest.csv', 'belgian-cities-geocoded.csv'))
-print("\nlast to depot\n")
-print(lastToDepot('clientsTest.csv', 'WPF.csv','belgian-cities-geocoded.csv'))
-print("\ndistance (actually time) matrix, diagonal elements == service time\n")
 matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 pd.DataFrame(matrix).to_csv('distanceMatrix.csv')
 
