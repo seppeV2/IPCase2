@@ -1,3 +1,4 @@
+from tracemalloc import start
 import pandas as pd
 import numpy as np
 from math import sin, cos, sqrt, atan2, radians
@@ -7,9 +8,10 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
     clients = pd.read_csv(csvClientFile)
     clientsAmount = len(clients.index)
 
-    #initial zeros distance matrix
+    #initial zeros distance matrix (N by N)
     distanceMatrix = np.zeros([clientsAmount,clientsAmount])
 
+    # row/column 1 to N are customers
     for i in range(clientsAmount):
         #line form one client
         clienti = clients.iloc[i]
@@ -74,11 +76,19 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
                     clientj = clients.iloc[j]
                     distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + round(service)
 
-    
+    # extending the matrix for depot 
+    # row 0 is start: depot to customers
     startMatrix = depotToClient(csvClientFile, cityNames)
-    distanceMatrix = np.append(startMatrix, distanceMatrix,axis=1)
+    distanceMatrix=np.vstack([startMatrix,distanceMatrix])
+
+    # column 0 is finish: customers to depot
+    endMatrix = np.c_[np.append(0, np.ones(clientsAmount))]
+    distanceMatrix=np.append(endMatrix,distanceMatrix,axis=1)
+
     print(distanceMatrix)
+
     return distanceMatrix
+
 
 #calculate distance in km between two coordinates
 def distanceKmFromCoord(lat1, lon1, lat2, lon2):
@@ -606,25 +616,25 @@ def dangerousTo(clientNow, clientNext,cityNames):
 #makes an array with the time between depot and the first client 
 def depotToClient(csvClient, cityNames):
     clients = pd.read_csv(csvClient)
-    depotToStart = np.zeros([len(clients.index),1])
+    depotToStart = np.zeros([len(clients.index)])
     for i in range(len(clients.index)):
-        depotToStart[i,0] = round(timeBetweenPlaces('Kampenhout' , clients.iloc[i]['Place'], cityNames))
-    
+        depotToStart[i] = round(timeBetweenPlaces('Kampenhout' , clients.iloc[i]['Place'], cityNames))
     return depotToStart
 
 #makes an array with the time between last client and depot
-def lastToDepot(csvClient, WPF , cityNames):
-    clients = pd.read_csv(csvClient)
-    wpf = pd.read_csv(WPF)
-    lastToDepot = np.zeros([(len(clients.index)+len(wpf.index)),2])
-    for i in range((len(clients.index)+len(wpf.index))):
-        if i < len(clients.index):
-            lastToDepot[i,0] = clients.iloc[i]['ClientID']
-            lastToDepot[i,1] = round(timeBetweenPlaces( clients.iloc[i]['Place'], 'Kampenhout' ,cityNames))
-        else:
-            lastToDepot[i,0] = wpf.iloc[(i-len(clients.index))]['WPFid']
-            lastToDepot[i,1] = round(timeBetweenPlaces( wpf.iloc[(i-len(clients.index))]['Place'], 'Kampenhout' ,cityNames))
-    return lastToDepot
+# def lastToDepot(csvClient, WPF , cityNames):
+#     clients = pd.read_csv(csvClient)
+#     wpf = pd.read_csv(WPF)
+#     lastToDepot = np.zeros([(len(clients.index)+len(wpf.index)),2])
+#     for i in range((len(clients.index)+len(wpf.index))):
+#         if i < len(clients.index):
+#             lastToDepot[i,0] = clients.iloc[i]['ClientID']
+#             lastToDepot[i,1] = round(timeBetweenPlaces( clients.iloc[i]['Place'], 'Kampenhout' ,cityNames))
+#         else:
+#             lastToDepot[i,0] = wpf.iloc[(i-len(clients.index))]['WPFid']
+#             lastToDepot[i,1] = round(timeBetweenPlaces( wpf.iloc[(i-len(clients.index))]['Place'], 'Kampenhout' ,cityNames))
+#     return lastToDepot
+
 
 matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 pd.DataFrame(matrix).to_csv('distanceMatrix.csv')
