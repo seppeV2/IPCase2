@@ -20,7 +20,7 @@ Service time = time spend at the costumer.
 
 after depot: do whatever you want.
 
-at wpf: we unload without taking the containr off, no need to calculate additional 12 min.
+at wpf: we unload without taking the container off, no need to calculate additional 12 min.
 
 if you can go direct, don't think about depot in the distance matrix!
 
@@ -168,6 +168,3 @@ createDistanceMatrix {
 }
 
 ```
-
-distance matrix element M[i,j] = time spend for service at costumer i + time need to go to time j 
-                                including wpf and depot visit 
