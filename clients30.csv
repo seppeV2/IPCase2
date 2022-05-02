@@ -1,0 +1,31 @@
+﻿ClientID,ClientName,ContainerSize,Waste,ActionType,Additional,opening,closing,Place
+1,bookstore,20,general,3,0,0,600,Antwerpen
+2,bookstore,15,general,3,0,0,600,Grimbergen
+3,fish shop,20,general,4,0,0,600,Leuven
+4,restaurant,18,general,4,0,0,300,Mechelen
+5,garage,15,general,4,0,0,600,Zaventem
+6,construction,20,construction,5,0,0,600,Gent
+7,bookstore,20,general,3,0,0,600,Sint-Katelijne-Waver
+8,lab,18,dangerous,6,0,360,540,Hasselt
+9,vegetables,20,general,4,0,0,600,Glain
+10,construction,20,construction,5,0,0,600,Boutersem
+11,fish shop,18,general,4,0,0,600,Boom
+12,electronics,20,general,1,0,0,600,Duffel
+13,vegetables,20,general,4,15,0,600,Brussel
+14,restaurant,15,general,4,0,0,300,Leuven
+15,garage,20,general,4,0,0,600,Brugge
+16,bookstore,20,general,3,0,0,600,Zonhoven
+17,bookstore,20,general,3,0,0,600,Mol
+18,fish shop,20,general,4,0,0,600,Herentals
+19,restaurant,18,general,4,15,0,300,Veurne
+20,garage,17,general,4,0,0,600,Brussel
+21,construction,20,construction,5,0,0,600,Zelzate
+22,bookstore,20,general,4,0,0,600,Leuven
+23,lab,18,dangerous,6,0,360,540,Aarschot
+24,vegetables,20,general,2,15,0,600,Diest
+25,construction,20,construction,5,0,0,600,Tienen
+26,restaurant,18,general,4,0,0,300,Liers
+27,electronics,20,general,4,0,0,600,Geel
+28,vegetables,20,general,4,0,0,600,Kortrijk
+29,restaurant,20,general,4,0,0,300,Ieper
+30,garage,20,general,4,0,0,600,Louvain-La-Neuve

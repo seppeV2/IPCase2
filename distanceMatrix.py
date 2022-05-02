@@ -58,7 +58,7 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
     endMatrix = np.c_[np.append(0, lastToDepot(csvClientFile, wpf, cityNames))]
     distanceMatrix=np.append(endMatrix,distanceMatrix,axis=1)
 
-    print(distanceMatrix)
+    # print(distanceMatrix)
 
     return distanceMatrix
 
@@ -701,10 +701,8 @@ def getServiceTime(client, cityNames, wpf):
             serviceTime += client['Additional']   
         return round(serviceTime) 
 
-start = time.time()
-matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
-end = time.time()
+# start = time.time()
+# matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+# end = time.time()
 
-print(end-start)
-pd.DataFrame(matrix).to_csv('distanceMatrix.csv')
-
+# print(end-start)

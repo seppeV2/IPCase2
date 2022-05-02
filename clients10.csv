@@ -1,0 +1,11 @@
+﻿ClientID,ClientName,ContainerSize,Waste,ActionType,Additional,opening,closing,Place
+1,bookstore,20,general,3,0,0,600,Antwerpen
+2,bookstore,15,general,3,0,0,600,Grimbergen
+3,fish shop,20,general,4,0,0,600,Leuven
+4,restaurant,18,general,4,0,0,300,Mechelen
+5,garage,15,general,4,0,0,600,Zaventem
+6,construction,20,construction,5,0,0,600,Gent
+7,bookstore,20,general,3,0,0,600,Sint-Katelijne-Waver
+8,lab,18,dangerous,6,0,360,540,Hasselt
+9,vegetables,20,general,4,0,0,600,Glain
+10,construction,20,construction,5,0,0,600,Boutersem
