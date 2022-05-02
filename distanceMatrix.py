@@ -2,7 +2,7 @@ from tracemalloc import start
 import pandas as pd
 import numpy as np
 from math import sin, cos, sqrt, atan2, radians
-
+import time
 
 def createDistanceMatrix(csvClientFile, cityNames, wpf):
     clients = pd.read_csv(csvClientFile)
@@ -701,6 +701,10 @@ def getServiceTime(client, cityNames, wpf):
             serviceTime += client['Additional']   
         return round(serviceTime) 
 
+start = time.time()
 matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+end = time.time()
+
+print(end-start)
 pd.DataFrame(matrix).to_csv('distanceMatrix.csv')
 
