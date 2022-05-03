@@ -38,6 +38,7 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
                 if i != j:
                     clientj = clients.iloc[j]
                     distanceMatrix[i,j] = round(switchTo(clienti, clientj,cityNames, wpf))  + getServiceTime(clienti,cityNames,wpf)
+                    
         elif clienti['ActionType'] == 5:
             for j in range(clientsAmount):
                 if i != j:
@@ -87,9 +88,9 @@ def timeBetweenPlaces(Place1, Place2, cityNames):
     toPlace = cities.loc[cities['name'] == Place2].iloc[0]
 
     distance = distanceKmFromCoord(fromPlace['lat'],fromPlace['lng'],toPlace['lat'],toPlace['lng'])
-    averageTime = 50 
+    averageSpeed = 50 
     #time = distance/speed (km/h) -> *60 to have minutes
-    time = (distance / averageTime)*60
+    time = (distance / averageSpeed)*60
     return time
 
 def closestPathWpf(clientNow, afterWpfDestination ,WPF, cityNames):
@@ -656,32 +657,28 @@ def getServiceTime(client, cityNames, wpf):
             #unloading the container
         serviceTime = 12
             #extras
-        if not pd.isnull(client['Additional']):
-            serviceTime += client['Additional']   
+        serviceTime += client['Additional']   
         return round(serviceTime)  
     elif state == 4:
         #do the action at the fist client
             #swapping the container
         serviceTime = 25
             #extras
-        if not pd.isnull(client['Additional']):
-            serviceTime += client['Additional']   
+        serviceTime += client['Additional']   
         return round(serviceTime)  
     elif state == 5:
         #do the action at the fist client
             #filling the container
         serviceTime = 30
             #extras
-        if not pd.isnull(client['Additional']):
-            serviceTime += client['Additional']    
+        serviceTime += client['Additional']    
         return round(serviceTime) 
     elif state == 2:
         #do the action at the fist client
             #loading the container
         serviceTime = 12
             #extras
-        if not pd.isnull(client['Additional']):
-            serviceTime += client['Additional']    
+        serviceTime += client['Additional']    
         return round(serviceTime) 
     elif state == 3 or state == 6:
         #do the action at the fist client
@@ -697,8 +694,7 @@ def getServiceTime(client, cityNames, wpf):
             #unload the container
         serviceTime += 12
             #extras
-        if not pd.isnull(client['Additional']):
-            serviceTime += client['Additional']   
+        serviceTime += client['Additional']   
         return round(serviceTime) 
 
 # start = time.time()
