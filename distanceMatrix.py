@@ -1,6 +1,7 @@
 from tracemalloc import start
 import pandas as pd
 import numpy as np
+from generateClients import generateClients
 from math import sin, cos, sqrt, atan2, radians
 import time
 
@@ -19,36 +20,36 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(newContractTo(clienti, clientj,cityNames)) + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(newContractTo(clienti, clientj,cityNames)) + getServiceTime(clientj,cityNames,wpf)
                 
         elif clienti['ActionType'] == 2:
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(endContractTo(clienti, clientj,cityNames, wpf)) + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(endContractTo(clienti, clientj,cityNames, wpf)) + getServiceTime(clientj,cityNames,wpf)
                
         elif clienti['ActionType'] == 3:
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(sameContainerTo(clienti, clientj,cityNames)) + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(sameContainerTo(clienti, clientj,cityNames)) + getServiceTime(clientj,cityNames,wpf)
                 
         elif clienti['ActionType'] == 4:
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(switchTo(clienti, clientj,cityNames, wpf))  + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(switchTo(clienti, clientj,cityNames, wpf))  + getServiceTime(clientj,cityNames,wpf)
                     
         elif clienti['ActionType'] == 5:
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(fillingUpTo(clienti, clientj,cityNames, wpf)) + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(fillingUpTo(clienti, clientj,cityNames, wpf)) + getServiceTime(clientj,cityNames,wpf)
         elif clienti['ActionType'] == 6:
             for j in range(clientsAmount):
                 if i != j:
                     clientj = clients.iloc[j]
-                    distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + getServiceTime(clienti,cityNames,wpf)
+                    distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + getServiceTime(clientj,cityNames,wpf)
 
     # extending the matrix for depot 
     # row 0 is start: depot to customers
@@ -59,7 +60,7 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
     endMatrix = np.c_[np.append(0, lastToDepot(csvClientFile, wpf, cityNames))]
     distanceMatrix=np.append(endMatrix,distanceMatrix,axis=1)
 
-    # print(distanceMatrix)
+    print(distanceMatrix)
 
     return distanceMatrix
 
@@ -130,6 +131,7 @@ def newContractTo(clientNow, clientNext,cityNames):
         #directly to client one to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
     elif stateNext == 4:
+        print(clientNext['Place'])
         #new contract to switch
         #first to depot after new container
         time+= timeBetweenPlaces(clientNow['Place'], 'Kampenhout', cityNames)
@@ -697,8 +699,6 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime += client['Additional']   
         return round(serviceTime) 
 
-# start = time.time()
-# matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
-# end = time.time()
-
-# print(end-start)
+start = time.time()
+matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+end = time.time()
