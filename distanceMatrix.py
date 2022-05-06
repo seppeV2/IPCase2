@@ -1,7 +1,6 @@
 from tracemalloc import start
 import pandas as pd
 import numpy as np
-from generateClients import generateClients
 from math import sin, cos, sqrt, atan2, radians
 import time
 
@@ -131,7 +130,6 @@ def newContractTo(clientNow, clientNext,cityNames):
         #directly to client one to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
     elif stateNext == 4:
-        print(clientNext['Place'])
         #new contract to switch
         #first to depot after new container
         time+= timeBetweenPlaces(clientNow['Place'], 'Kampenhout', cityNames)
@@ -700,5 +698,5 @@ def getServiceTime(client, cityNames, wpf):
         return round(serviceTime) 
 
 start = time.time()
-matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+matrix = createDistanceMatrix('clients30.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 end = time.time()
