@@ -49,6 +49,14 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
                 if i != j:
                     clientj = clients.iloc[j]
                     distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + getServiceTime(clientj,cityNames,wpf)
+                #update the time windows
+                closestWpf = closestPathWpf(clienti,clienti['Place'], wpf, cityNames)
+                backToi = round(timeBetweenPlaces(closestWpf['Place'], clienti['Place'], cityNames))
+                opening = 360 + 20 + backToi + 12
+                closing = min([(600-timeBetweenPlaces(clienti['Place'],'Kampenhout',cityNames)),(540+backToi+12)])
+                clients.at[i,'opening'] = opening
+                clients.at[i,'closing'] = closing
+                clients.to_csv(csvClientFile, index = False)
 
     # extending the matrix for depot 
     # row 0 is start: depot to customers
@@ -71,7 +79,6 @@ def distanceKmFromCoord(lat1, lon1, lat2, lon2):
     lon1 = radians(lon1)
     lat2 = radians(lat2)
     lon2 = radians(lon2)
-
     dlon = lon2 - lon1
     dlat = lat2 - lat1
 
@@ -132,10 +139,7 @@ def newContractTo(clientNow, clientNext,cityNames):
         #directly to client one to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
     elif stateNext == 4:
-<<<<<<< HEAD
-=======
         # print(clientNext['Place'])
->>>>>>> 2d43d28de7e115e2998795a7765e261168ae9d1f
         #new contract to switch
         #first to depot after new container
         time+= timeBetweenPlaces(clientNow['Place'], 'Kampenhout', cityNames)
@@ -715,5 +719,5 @@ def getServiceTime(client, cityNames, wpf):
         return round(serviceTime) 
 
 # start = time.time()
-# matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+#matrix = createDistanceMatrix('clients2.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 # end = time.time()
