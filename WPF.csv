@@ -1,5 +1,5 @@
-﻿WPFid,general,paper,construction,dangerous,Place,coordinates
-0.1,T,T,T,F,Gent,
-0.3,T,T,T,F,Brugge,
-0.3,T,T,T,F,Mechelen,
-0.4,F,F,T,T,Antwerpen,
+﻿WPFid,general,paper,construction,dangerous,Place,lat,lon
+0.1,T,T,T,F,Gent,51.0678307,3.7290914
+0.3,T,T,T,F,Brugge,51.2093488,3.2247013
+0.3,T,T,T,F,Mechelen,51.0258791,4.4775365
+0.4,F,F,T,T,Antwerpen,51.2198771,4.4011356

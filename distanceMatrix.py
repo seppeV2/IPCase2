@@ -59,7 +59,7 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
     endMatrix = np.c_[np.append(0, lastToDepot(csvClientFile, wpf, cityNames))]
     distanceMatrix=np.append(endMatrix,distanceMatrix,axis=1)
 
-    print(distanceMatrix)
+    # print(distanceMatrix)
 
     return distanceMatrix
 
@@ -91,6 +91,7 @@ def timeBetweenPlaces(Place1, Place2, cityNames):
     averageSpeed = 50 
     #time = distance/speed (km/h) -> *60 to have minutes
     time = (distance / averageSpeed)*60
+    # print(Place1,Place2,time)
     return time
 
 def closestPathWpf(clientNow, afterWpfDestination ,WPF, cityNames):
@@ -107,6 +108,7 @@ def closestPathWpf(clientNow, afterWpfDestination ,WPF, cityNames):
             if (timeBetweenPlaces(clientNow['Place'], wpf.iloc[i]['Place'], cityNames) < distance) and wpf.iloc[i][waste] == 'T':
                 distance = timeBetweenPlaces(place1, wpf.iloc[i]['Place'], cityNames)
                 closest = wpf.iloc[i]
+    # print('WPFS: '+clientNow['Place'],distance,closest.Place,afterWpfDestination)
     return closest
 
 #new contract
@@ -130,6 +132,10 @@ def newContractTo(clientNow, clientNext,cityNames):
         #directly to client one to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
     elif stateNext == 4:
+<<<<<<< HEAD
+=======
+        # print(clientNext['Place'])
+>>>>>>> 2d43d28de7e115e2998795a7765e261168ae9d1f
         #new contract to switch
         #first to depot after new container
         time+= timeBetweenPlaces(clientNow['Place'], 'Kampenhout', cityNames)
@@ -149,6 +155,7 @@ def newContractTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
+    # print('1: ',clientNow.Place,clientNext.Place,time)
     return time
         
 #end of contract
@@ -167,7 +174,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -217,7 +224,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -241,7 +248,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -266,6 +273,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
+    # print('2: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #exact same (equals new contract)
@@ -308,6 +316,7 @@ def sameContainerTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
+    # print('3: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #switch (equals end of contract)
@@ -326,7 +335,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -376,7 +385,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -400,7 +409,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -425,6 +434,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
+    # print('4: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #filling up (equals end of contract)
@@ -443,7 +453,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -493,7 +503,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -517,7 +527,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -542,6 +552,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
+    # print('5: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #dangerous to (equals exact the same)
@@ -584,6 +595,7 @@ def dangerousTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
+    # print('6: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #makes an array with the time between depot and the first client 
@@ -658,27 +670,31 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime = 12
             #extras
         serviceTime += client['Additional']   
+        # print('ST: @'+client['Place'],serviceTime)
         return round(serviceTime)  
     elif state == 4:
         #do the action at the fist client
             #swapping the container
         serviceTime = 25
             #extras
-        serviceTime += client['Additional']   
+        serviceTime += client['Additional'] 
+        # print('ST: @'+client['Place'],serviceTime)  
         return round(serviceTime)  
     elif state == 5:
         #do the action at the fist client
             #filling the container
         serviceTime = 30
             #extras
-        serviceTime += client['Additional']    
+        serviceTime += client['Additional']   
+        # print('ST: @'+client['Place'],serviceTime) 
         return round(serviceTime) 
     elif state == 2:
         #do the action at the fist client
             #loading the container
         serviceTime = 12
             #extras
-        serviceTime += client['Additional']    
+        serviceTime += client['Additional']  
+        # print('ST: @'+client['Place'],serviceTime)  
         return round(serviceTime) 
     elif state == 3 or state == 6:
         #do the action at the fist client
@@ -695,8 +711,15 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime += 12
             #extras
         serviceTime += client['Additional']   
+        # print('ST: @'+client['Place'],serviceTime)
         return round(serviceTime) 
 
+<<<<<<< HEAD
 start = time.time()
 matrix = createDistanceMatrix('clients30.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 end = time.time()
+=======
+# start = time.time()
+# matrix = createDistanceMatrix('clientsTest.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+# end = time.time()
+>>>>>>> 2d43d28de7e115e2998795a7765e261168ae9d1f

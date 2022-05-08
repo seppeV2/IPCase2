@@ -20,7 +20,7 @@
 19,restaurant,18,general,4,15,0,300,Veurne
 20,garage,17,general,4,0,0,600,Brussel
 21,construction,20,construction,5,0,0,600,Zelzate
-22,bookstore,20,general,4,0,0,600,Leuven
+22,garage,20,general,4,0,0,600,Leuven
 23,lab,18,dangerous,6,0,360,540,Aarschot
 24,vegetables,20,general,2,15,0,600,Diest
 25,construction,20,construction,5,0,0,600,Tienen
