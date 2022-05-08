@@ -92,6 +92,7 @@ def timeBetweenPlaces(Place1, Place2, cityNames):
     averageSpeed = 50 
     #time = distance/speed (km/h) -> *60 to have minutes
     time = (distance / averageSpeed)*60
+    # print(Place1,Place2,time)
     return time
 
 def closestPathWpf(clientNow, afterWpfDestination ,WPF, cityNames):
@@ -171,7 +172,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -221,7 +222,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -245,7 +246,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -332,7 +333,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -382,7 +383,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -406,7 +407,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -450,7 +451,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #no new container size needed
@@ -500,7 +501,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
@@ -524,7 +525,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
             #than go to depot 
             time += timeBetweenPlaces(closestWpf, 'Kampenhout', cityNames)
             #change container 
-            time += 6
+            time += 6*2
             #go to new client
             time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
         #if not
