@@ -719,5 +719,5 @@ def getServiceTime(client, cityNames, wpf):
         return round(serviceTime) 
 
 # start = time.time()
-#matrix = createDistanceMatrix('clients2.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+matrix = createDistanceMatrix('clients30.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 # end = time.time()
