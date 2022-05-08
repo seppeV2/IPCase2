@@ -109,7 +109,7 @@ def closestPathWpf(clientNow, afterWpfDestination ,WPF, cityNames):
             if (timeBetweenPlaces(clientNow['Place'], wpf.iloc[i]['Place'], cityNames) < distance) and wpf.iloc[i][waste] == 'T':
                 distance = timeBetweenPlaces(place1, wpf.iloc[i]['Place'], cityNames)
                 closest = wpf.iloc[i]
-    print('WPFS: '+clientNow['Place'],distance,closest.Place,afterWpfDestination)
+    # print('WPFS: '+clientNow['Place'],distance,closest.Place,afterWpfDestination)
     return closest
 
 #new contract
@@ -153,7 +153,7 @@ def newContractTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
-    print('1: ',clientNow.Place,clientNext.Place,time)
+    # print('1: ',clientNow.Place,clientNext.Place,time)
     return time
         
 #end of contract
@@ -271,7 +271,7 @@ def endContractTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
-    print('2: ',clientNow.Place,clientNext.Place,time)
+    # print('2: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #exact same (equals new contract)
@@ -314,7 +314,7 @@ def sameContainerTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
-    print('3: ',clientNow.Place,clientNext.Place,time)
+    # print('3: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #switch (equals end of contract)
@@ -432,7 +432,7 @@ def switchTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
-    print('4: ',clientNow.Place,clientNext.Place,time)
+    # print('4: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #filling up (equals end of contract)
@@ -550,7 +550,7 @@ def fillingUpTo(clientNow, clientNext,cityNames, wpf):
         time += 6
         #go to new client
         time += timeBetweenPlaces('Kampenhout', clientNext['Place'], cityNames)
-    print('5: ',clientNow.Place,clientNext.Place,time)
+    # print('5: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #dangerous to (equals exact the same)
@@ -593,7 +593,7 @@ def dangerousTo(clientNow, clientNext,cityNames):
         #new contract to dangerous waste 
         #directly to client
         time += timeBetweenPlaces(clientNow['Place'], clientNext['Place'], cityNames)
-    print('6: ',clientNow.Place,clientNext.Place,time)
+    # print('6: ',clientNow.Place,clientNext.Place,time)
     return time
 
 #makes an array with the time between depot and the first client 
@@ -668,7 +668,7 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime = 12
             #extras
         serviceTime += client['Additional']   
-        print('ST: @'+client['Place'],serviceTime)
+        # print('ST: @'+client['Place'],serviceTime)
         return round(serviceTime)  
     elif state == 4:
         #do the action at the fist client
@@ -676,7 +676,7 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime = 25
             #extras
         serviceTime += client['Additional'] 
-        print('ST: @'+client['Place'],serviceTime)  
+        # print('ST: @'+client['Place'],serviceTime)  
         return round(serviceTime)  
     elif state == 5:
         #do the action at the fist client
@@ -684,7 +684,7 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime = 30
             #extras
         serviceTime += client['Additional']   
-        print('ST: @'+client['Place'],serviceTime) 
+        # print('ST: @'+client['Place'],serviceTime) 
         return round(serviceTime) 
     elif state == 2:
         #do the action at the fist client
@@ -692,7 +692,7 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime = 12
             #extras
         serviceTime += client['Additional']  
-        print('ST: @'+client['Place'],serviceTime)  
+        # print('ST: @'+client['Place'],serviceTime)  
         return round(serviceTime) 
     elif state == 3 or state == 6:
         #do the action at the fist client
@@ -709,7 +709,7 @@ def getServiceTime(client, cityNames, wpf):
         serviceTime += 12
             #extras
         serviceTime += client['Additional']   
-        print('ST: @'+client['Place'],serviceTime)
+        # print('ST: @'+client['Place'],serviceTime)
         return round(serviceTime) 
 
 # start = time.time()

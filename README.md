@@ -75,6 +75,18 @@ Lastly, dangerous waste or other conditions, can be considered for the wpf. They
 
 **ASSMPTION: trucks always start/end the day empty. all containers should be placed in depot not on trucks**
 
+
+## preprocessing timewindows for dangerous clients
+
+for dangerous customer $j$, wpf $w$ is the $closestWPF(dangerous)$ to $j$. Here, since only Antwerp deals with dangerous clients, it is even easier, as there's no need to calculate the shortest WPF.
+
+The formulas below are fragments of formulas in previous section:
+
+- opening@j: openWpf + emptyLoad+ backToJ + place@j
+  - $360 + 20 + t_{jw} + 12$
+- closing@j: minimum of {return to depot before 600, closingWpf + backToJ + place@j}
+  - $\min\{600-t_{jd}, 540 + t_{jw} + 12\}$
+
 ## how to enumerate the matrix
 for each course of action, several routes might be available. we store them, and choose the "shortest path".
 
