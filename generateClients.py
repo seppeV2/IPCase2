@@ -16,16 +16,16 @@ def generateClients(amount, csvCities):
         waste = typesOfWaste[randrange(len(typesOfWaste))]
         containerSize = containerSizes[randrange(len(containerSizes))]
         additional = additionals[randrange(len(additionals))]
-        actionType = randrange(6) + 1
+        actionType = randrange(6) + 1 
         if(actionType==6):
             # needs more thought
-            opening = 360
-            closing = 540-20
-            clientName = 'dangerousPlace' + str(i)
+            opening = 999
+            closing = 999
+            clientName = 'dangerousClient' + str(i)
         else:
             opening = 0
             closing = 600
-            clientName = 'RandomClient_' + str(i)
+            clientName = 'randomClient_' + str(i)
             
         clienti = [i+1, clientName, containerSize, waste, city, actionType, additional, opening, closing]
         data.append(clienti)

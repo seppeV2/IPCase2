@@ -51,11 +51,20 @@ def createDistanceMatrix(csvClientFile, cityNames, wpf):
                     distanceMatrix[i,j] = round(dangerousTo(clienti, clientj,cityNames)) + getServiceTime(clientj,cityNames,wpf)
                 #update the time windows
                 closestWpf = closestPathWpf(clienti,clienti['Place'], wpf, cityNames)
-                backToi = round(timeBetweenPlaces(closestWpf['Place'], clienti['Place'], cityNames))
-                opening = 360 + 20 + backToi + 12
-                closing = min([(600-timeBetweenPlaces(clienti['Place'],'Kampenhout',cityNames)),(540+backToi+12)])
-                clients.at[i,'opening'] = opening
-                clients.at[i,'closing'] = closing
+                backToClient = round(timeBetweenPlaces(closestWpf['Place'], clienti['Place'], cityNames))
+                EXTRA = clienti['Additional']
+                backToDepot = round(timeBetweenPlaces(clienti['Place'],'Kampenhout',cityNames))
+                opening = 360 + 20 + backToClient + 12 + EXTRA
+                closing = min([
+                    (600-backToDepot),
+                    (540+backToClient+12+EXTRA)
+                    ])
+                if closing > opening:
+                    clients.at[i,'opening'] = opening
+                    clients.at[i,'closing'] = closing
+                else:
+                    clients.at[i,'opening'] = 999
+                    clients.at[i,'closing'] = 9999
                 clients.to_csv(csvClientFile, index = False)
 
     # extending the matrix for depot 
@@ -719,5 +728,5 @@ def getServiceTime(client, cityNames, wpf):
         return round(serviceTime) 
 
 # start = time.time()
-matrix = createDistanceMatrix('clients30.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
+# matrix = createDistanceMatrix('clients30.csv', 'belgian-cities-geocoded.csv', 'WPF.csv')
 # end = time.time()
