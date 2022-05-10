@@ -18,10 +18,10 @@ ClientID,ClientName,ContainerSize,Waste,ActionType,Additional,opening,closing,Pl
 17,bookstore,20,general,3,0,0,600,Mol
 18,fish shop,20,general,4,0,0,600,Herentals
 19,restaurant,18,general,4,15,0,300,Veurne
-20,garage,17,general,4,0,0,600,Brussel
+20,garage,15,general,4,0,0,600,Brussel
 21,construction,20,construction,5,0,0,600,Zelzate
 22,garage,20,general,4,0,0,600,Leuven
-23,lab,18,dangerous,6,0,440,576,Aarschot
+23,lab,18,dangerous,6,0,440,577,Aarschot
 24,vegetables,20,general,2,15,0,600,Diest
 25,construction,20,construction,5,0,0,600,Tienen
 26,restaurant,18,general,4,0,0,300,Liers

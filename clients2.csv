@@ -1,3 +1,3 @@
 ﻿ClientID,ClientName,ContainerSize,Waste,ActionType,Additional,opening,closing,Place
-1,lab,18,dangerous,6,0,360,540,Hasselt
-2,restaurant,18,general,4,0,0,300,Liers
+1,bookstore,20,general,3,0,0,600,Antwerpen
+2,bookstore,15,general,3,0,0,600,Grimbergen

@@ -82,10 +82,12 @@ for dangerous customer $j$, wpf $w$ is the $closestWPF(dangerous)$ to $j$. Here,
 
 The formulas below are fragments of formulas in previous section:
 
-- opening@j: openWpf + emptyLoad+ backToJ + place@j
-  - $360 + 20 + t_{jw} + 12$
-- closing@j: minimum of {return to depot before 600, closingWpf + backToJ + place@j}
-  - $\min\{600-t_{jd}, 540 + t_{jw} + 12\}$
+- opening@j: openWpf + em3ptyLoad+ backToJ + place@j + EXTRA
+  - $360 + 20 + t_{wj} + 12 + EXTRA$
+- closing@j: minimum of {return to depot before 600, closingWpf + backToJ + place@j + EXTRA}
+  - $\min\{600-t_{jd}, 540 + t_{wj} + 12 + EXTRA\}$
+
+**NOTE** if opening > closing, client is infeasible.
 
 ## how to enumerate the matrix
 for each course of action, several routes might be available. we store them, and choose the "shortest path".
